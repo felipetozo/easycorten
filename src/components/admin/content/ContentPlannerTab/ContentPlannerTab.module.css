@@ -1,0 +1,207 @@
+.root { display: flex; flex-direction: column; gap: 2rem; }
+
+/* ─── Gerador ───────────────────────────────────────────────── */
+.generator {
+  background-color: rgba(var(--rgb-white), 1);
+  border: 1px solid rgba(var(--rgb-black), 0.07);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.genTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: rgba(var(--rgb-black), 0.85);
+}
+
+.genTitle svg { color: rgba(var(--rgb-corten), 1); }
+
+.warn {
+  padding: 0.75rem 1rem;
+  background-color: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  color: rgba(146, 64, 14, 1);
+}
+
+.channelSummary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.channelChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border: 1.5px solid;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: rgba(var(--rgb-white), 1);
+}
+
+.controls {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.controlGroup { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.controlLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(var(--rgb-black), 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.periodBtns { display: flex; gap: 0.25rem; }
+
+.periodBtn {
+  padding: 0.4rem 0.875rem;
+  border: 1px solid rgba(var(--rgb-black), 0.14);
+  border-radius: 0.375rem;
+  background-color: rgba(var(--rgb-white), 1);
+  font-size: 0.8125rem;
+  color: rgba(var(--rgb-black), 0.6);
+  cursor: pointer;
+  font-weight: 500;
+  transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+}
+
+.periodBtn:hover:not(.periodBtnLocked) { border-color: rgba(var(--rgb-corten), 0.4); color: rgba(var(--rgb-corten), 1); }
+
+.periodBtnLocked {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: rgba(var(--rgb-black), 0.35);
+}
+
+.lockIcon { font-size: 0.65rem; margin-left: 0.25rem; }
+
+.periodBtnActive {
+  border-color: rgba(var(--rgb-corten), 1);
+  background-color: rgba(var(--rgb-corten), 0.06);
+  color: rgba(var(--rgb-corten), 1);
+  font-weight: 700;
+}
+
+.dateInput {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(var(--rgb-black), 0.14);
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  color: rgba(var(--rgb-black), 0.85);
+  background-color: rgba(var(--rgb-white), 1);
+}
+
+.dateInput:focus { outline: none; border-color: rgba(var(--rgb-corten), 0.5); }
+
+.generateBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.25rem;
+  background-color: rgba(var(--rgb-corten), 1);
+  color: rgba(var(--rgb-white), 1);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  height: 2.25rem;
+}
+
+.generateBtn:hover:not(:disabled) { background-color: rgba(149, 58, 19, 1); }
+.generateBtn:disabled { opacity: 0.5; cursor: default; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 0.8s linear infinite; }
+
+.errorMsg {
+  padding: 0.625rem 0.875rem;
+  background-color: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  color: rgba(185, 28, 28, 1);
+}
+
+.successMsg {
+  padding: 0.625rem 0.875rem;
+  background-color: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  color: rgba(6, 95, 70, 1);
+}
+
+/* ─── Histórico ─────────────────────────────────────────────── */
+.history {
+  background-color: rgba(var(--rgb-white), 1);
+  border: 1px solid rgba(var(--rgb-black), 0.07);
+  border-radius: 0.5rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.historyTitle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: rgba(var(--rgb-black), 0.6);
+  margin-bottom: 0.875rem;
+}
+
+.calList { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.calItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid rgba(var(--rgb-black), 0.07);
+  border-radius: 0.375rem;
+  background-color: rgba(var(--rgb-black), 0.015);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.calPeriod {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(var(--rgb-black), 0.7);
+}
+
+.calPeriod svg { color: rgba(var(--rgb-corten), 1); flex-shrink: 0; }
+
+.calMeta { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+
+.calCount {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(var(--rgb-corten), 1);
+}
+
+.calChannels { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+
+.calChannel {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  border-radius: 20px;
+  background-color: rgba(var(--rgb-black), 0.06);
+  color: rgba(var(--rgb-black), 0.5);
+}

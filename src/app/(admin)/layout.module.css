@@ -1,0 +1,17 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  margin-left: var(--sidebar-w, 18.48rem);
+  transition: margin-left 0.22s ease;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  min-height: 100vh;
+  min-width: 0;
+  background-color: rgba(var(--rgb-section-light), 1);
+  display: flex;
+  flex-direction: column;
+}

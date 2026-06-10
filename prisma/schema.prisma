@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AnalyticsVisitor {
+  id           String    @id
+  firstSeen    DateTime  @default(now()) @map("first_seen")
+  lastSeen     DateTime  @default(now()) @map("last_seen")
+  visitCount   Int       @default(1) @map("visit_count")
+  lastIp       String?   @map("last_ip")
+  userAgent    String?   @map("user_agent")
+  language     String?
+  timezone     String?
+  screen       String?
+  displayName  String?   @map("display_name")
+  leadKey      String?   @map("lead_key")
+  identifiedAt DateTime? @map("identified_at")
+  firstReferrerSrc String? @map("first_referrer_src")
+  firstUtmSource   String? @map("first_utm_source")
+  firstUtmMedium   String? @map("first_utm_medium")
+  firstUtmCampaign String? @map("first_utm_campaign")
+  firstAdSource    String? @map("first_ad_source")
+  pageviews    AnalyticsPageview[]
+  events       AnalyticsEvent[]
+
+  @@map("analytics_visitor")
+}
+
+model AnalyticsPageview {
+  id             Int              @id @default(autoincrement())
+  visitorId      String           @map("visitor_id")
+  visitor        AnalyticsVisitor @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  sessionKey     String?          @map("session_key")
+  path           String
+  title          String?
+  referrer       String?
+  referrerDomain String?          @map("referrer_domain")
+  referrerSrc    String?          @map("referrer_src")
+  isMobile       Boolean          @default(false) @map("is_mobile")
+  utmSource      String?          @map("utm_source")
+  utmMedium      String?          @map("utm_medium")
+  utmCampaign    String?          @map("utm_campaign")
+  utmContent     String?          @map("utm_content")
+  utmTerm        String?          @map("utm_term")
+  adClickId      String?          @map("ad_click_id")
+  adClickSource  String?          @map("ad_click_source")
+  timeOnPage     Int?             @map("time_on_page")
+  createdAt      DateTime         @default(now()) @map("created_at")
+
+  @@index([visitorId])
+  @@index([createdAt])
+  @@index([sessionKey, path, visitorId])
+  @@map("analytics_pageview")
+}
+
+model AnalyticsEvent {
+  id         Int              @id @default(autoincrement())
+  visitorId  String           @map("visitor_id")
+  visitor    AnalyticsVisitor @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  sessionKey String?          @map("session_key")
+  eventType  String           @map("event_type")
+  eventLabel String?          @map("event_label")
+  eventData  Json?            @map("event_data")
+  path       String?
+  createdAt  DateTime         @default(now()) @map("created_at")
+
+  @@index([visitorId])
+  @@index([createdAt])
+  @@map("analytics_event")
+}
+
+// ─── Content System ───────────────────────────────────────────────────────────
+
+model ContentProfile {
+  id                     String   @id @default(cuid())
+  name                   String   @default("Easy Corten")
+  segment                String?
+  tone                   String?
+  targetAudience         String?  @map("target_audience")
+  brandKeywords          Json     @default("[]") @map("brand_keywords")
+  avoidWords             Json     @default("[]") @map("avoid_words")
+  briefing               String?
+  activeChannels         Json     @default("[]") @map("active_channels")
+  contentFrequency       Json     @default("{}") @map("content_frequency")
+  cmsConfig              Json?    @map("cms_config")
+  imageStyleInstructions String?  @map("image_style_instructions")
+  brandColors            Json     @default("[]") @map("brand_colors")
+  brandStyle             String?  @map("brand_style")
+  avoidVisuals           Json     @default("[]") @map("avoid_visuals")
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  calendars ContentCalendar[]
+  tasks     ContentTask[]
+  drafts    ContentDraft[]
+
+  @@map("content_profile")
+}
+
+model ContentCalendar {
+  id          String         @id @default(cuid())
+  profileId   String         @map("profile_id")
+  profile     ContentProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  periodStart DateTime       @map("period_start")
+  periodEnd   DateTime       @map("period_end")
+  channels    Json           @default("[]")
+  tasksCount  Int            @default(0) @map("tasks_count")
+  status      String         @default("active")
+  createdAt   DateTime       @default(now()) @map("created_at")
+
+  tasks ContentTask[]
+
+  @@map("content_calendar")
+}
+
+model ContentTask {
+  id           String          @id @default(cuid())
+  profileId    String          @map("profile_id")
+  profile      ContentProfile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  calendarId   String?         @map("calendar_id")
+  calendar     ContentCalendar? @relation(fields: [calendarId], references: [id])
+  channel      String
+  format       String
+  theme        String
+  brief        String          @db.Text
+  scheduledFor DateTime        @map("scheduled_for")
+  status       String          @default("pending")
+  publishedUrl String?         @map("published_url")
+  errorLog     String?         @map("error_log") @db.Text
+  createdBy    String          @default("manual") @map("created_by")
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @updatedAt @map("updated_at")
+
+  drafts ContentDraft[]
+
+  @@index([profileId])
+  @@index([calendarId])
+  @@index([scheduledFor])
+  @@index([status])
+  @@map("content_task")
+}
+
+model ContentDraft {
+  id        String         @id @default(cuid())
+  taskId    String         @map("task_id")
+  task      ContentTask    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  profileId String         @map("profile_id")
+  profile   ContentProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  agent     String
+  type      String
+  content   String         @db.Text
+  metadata  Json?
+  status    String         @default("draft")
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+
+  @@index([taskId])
+  @@index([profileId])
+  @@map("content_draft")
+}

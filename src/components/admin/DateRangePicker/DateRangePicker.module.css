@@ -1,0 +1,86 @@
+.dateSelect { position: relative; }
+
+.dateBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(var(--rgb-black), 0.14);
+  border-radius: 0.5rem;
+  background-color: rgba(var(--rgb-white), 1);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(var(--rgb-black), 0.75);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.dateBtn:hover { border-color: rgba(var(--rgb-black), 0.28); }
+
+.dateBtnOpen {
+  border-color: rgba(var(--rgb-corten), 1);
+  box-shadow: 0 0 0 2px rgba(var(--rgb-corten), 0.15);
+}
+
+.dateIcon    { font-size: 0.95rem; color: rgba(var(--rgb-black), 0.5); }
+.dateChevron { font-size: 1rem;    color: rgba(var(--rgb-black), 0.45); }
+
+.dateMenu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  min-width: 12rem;
+  background-color: rgba(var(--rgb-white), 1);
+  border: 1px solid rgba(var(--rgb-black), 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 12px 32px rgba(var(--rgb-black), 0.14);
+  padding: 0.3rem;
+  z-index: 60;
+}
+
+.dateOption {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  border: none;
+  background: transparent;
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  color: rgba(var(--rgb-black), 0.75);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.dateOption:hover { background-color: rgba(var(--rgb-black), 0.04); }
+
+.dateOptionActive {
+  background-color: rgba(var(--rgb-corten), 0.08);
+  color: rgba(var(--rgb-corten), 1);
+  font-weight: 600;
+}
+
+.dateCustom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.7rem 0.3rem;
+  border-top: 1px solid rgba(var(--rgb-black), 0.07);
+}
+
+.dateCustomField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(var(--rgb-black), 0.55);
+}
+
+.dateCustomField input {
+  border: 1px solid rgba(var(--rgb-black), 0.14);
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.75rem;
+  color: rgba(var(--rgb-black), 0.85);
+}

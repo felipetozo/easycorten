@@ -1,0 +1,361 @@
+.root { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ─── Toolbar ───────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.filterGroup { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+
+.filterBtn {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(var(--rgb-black), 0.12);
+  border-radius: 20px;
+  background-color: rgba(var(--rgb-white), 1);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(var(--rgb-black), 0.55);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+  white-space: nowrap;
+}
+.filterBtn:hover { border-color: rgba(var(--rgb-corten), 0.4); color: rgba(var(--rgb-corten), 1); }
+.filterBtnActive { border-color: rgba(var(--rgb-corten), 1); background-color: rgba(var(--rgb-corten), 0.06); color: rgba(var(--rgb-corten), 1); font-weight: 700; }
+
+.refreshBtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem;
+  border: 1px solid rgba(var(--rgb-black), 0.12); border-radius: 0.375rem;
+  background-color: rgba(var(--rgb-white), 1); color: rgba(var(--rgb-black), 0.5);
+  cursor: pointer; font-size: 0.95rem; padding: 0;
+  transition: color 0.15s, border-color 0.15s;
+}
+.refreshBtn:hover { color: rgba(var(--rgb-corten), 1); border-color: rgba(var(--rgb-corten), 0.3); }
+
+.empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(var(--rgb-black), 0.35);
+}
+
+/* ─── Grupo por dia ─────────────────────────────────────────── */
+.dayGroup { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.dayHeader {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(var(--rgb-black), 0.4);
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(var(--rgb-black), 0.06);
+}
+
+.taskList { display: flex; flex-direction: column; gap: 0.5rem; }
+
+/* ─── Task card ─────────────────────────────────────────────── */
+.taskCard {
+  background-color: rgba(var(--rgb-white), 1);
+  border: 1px solid rgba(var(--rgb-black), 0.07);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+/* Header row — single line, all inline */
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  background-color: rgba(var(--rgb-black), 0.01);
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.channelBadge {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.68rem; font-weight: 700;
+  padding: 0.15rem 0.5rem; border: 1.5px solid; border-radius: 20px;
+  white-space: nowrap; flex-shrink: 0;
+}
+
+.taskTheme {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(var(--rgb-black), 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.taskDate {
+  font-size: 0.72rem;
+  color: rgba(var(--rgb-black), 0.35);
+  flex-shrink: 0;
+}
+
+.statusBadge {
+  font-size: 0.68rem; font-weight: 700;
+  padding: 0.15rem 0.55rem; border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+}
+
+.generatingLabel {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.75rem; font-weight: 600; color: rgba(16, 185, 129, 1);
+  flex-shrink: 0;
+}
+
+/* ─── Icon buttons ──────────────────────────────────────────── */
+.iconBtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem;
+  border-radius: 0.375rem; border: none;
+  cursor: pointer; flex-shrink: 0; padding: 0;
+  transition: background-color 0.15s, color 0.15s;
+}
+.iconBtn:disabled { opacity: 0.4; cursor: default; }
+
+.runIconBtn     { background-color: rgba(16, 185, 129, 0.1); color: rgba(16, 185, 129, 1); }
+.runIconBtn:hover:not(:disabled) { background-color: rgba(16, 185, 129, 0.2); }
+
+.viewIconBtn    { background-color: rgba(99, 102, 241, 0.08); color: rgba(99, 102, 241, 1); }
+.viewIconBtn:hover { background-color: rgba(99, 102, 241, 0.15); }
+
+.approveIconBtn { background-color: rgba(16, 185, 129, 0.08); color: rgba(16, 185, 129, 1); }
+.approveIconBtn:hover { background-color: rgba(16, 185, 129, 0.18); }
+
+.deleteIconBtn  { background-color: rgba(239, 68, 68, 0.07); color: rgba(239, 68, 68, 0.7); }
+.deleteIconBtn:hover:not(:disabled) { background-color: rgba(239, 68, 68, 0.15); color: rgba(239, 68, 68, 1); }
+
+.expandBtn { background-color: rgba(var(--rgb-black), 0.03); color: rgba(var(--rgb-black), 0.35); }
+.expandBtn:hover { background-color: rgba(var(--rgb-black), 0.07); color: rgba(var(--rgb-black), 0.6); }
+
+/* ─── Progress bar ──────────────────────────────────────────── */
+.progressWrap {
+  padding: 0.5rem 1rem 0.75rem;
+  background-color: rgba(240, 253, 244, 1);
+  border-top: 1px solid rgba(187, 247, 208, 1);
+}
+
+.progressTop {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.progressLabel { font-size: 0.75rem; font-weight: 600; color: rgba(21, 128, 61, 1); }
+.progressPct   { font-size: 0.72rem; color: rgba(21, 128, 61, 0.7); }
+
+.progressTrack {
+  height: 4px;
+  border-radius: 4px;
+  background-color: rgba(187, 247, 208, 1);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 4px;
+  background-color: rgba(16, 185, 129, 1);
+  transition: width 1.2s ease-in-out;
+}
+
+/* ─── Error + Expanded ──────────────────────────────────────── */
+.genError {
+  padding: 0.4rem 1rem;
+  background-color: rgba(254, 242, 242, 1);
+  border-top: 1px solid rgba(254, 202, 202, 1);
+  font-size: 0.75rem;
+  color: rgba(220, 38, 38, 1);
+}
+
+.cardExpanded {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(var(--rgb-black), 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.briefText {
+  font-size: 0.8rem;
+  color: rgba(var(--rgb-black), 0.5);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.draftList { display: flex; flex-direction: column; gap: 0; }
+
+.draftsLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(var(--rgb-black), 0.3);
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.draftRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(var(--rgb-black), 0.05);
+}
+.draftRow:last-child { border-bottom: none; }
+
+.draftType {
+  font-size: 0.72rem; font-weight: 700;
+  padding: 0.1rem 0.45rem; border-radius: 20px;
+  background-color: rgba(99, 102, 241, 0.08);
+  color: rgba(99, 102, 241, 1);
+  flex-shrink: 0;
+}
+
+.draftStatus {
+  flex: 1;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.draftViewBtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.75rem; height: 1.75rem;
+  border: none; border-radius: 6px;
+  background-color: rgba(var(--rgb-black), 0.04);
+  color: rgba(var(--rgb-black), 0.45);
+  cursor: pointer; padding: 0;
+  transition: color 0.15s, background-color 0.15s;
+}
+.draftViewBtn:hover { background-color: rgba(var(--rgb-black), 0.08); color: rgba(var(--rgb-black), 0.75); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 0.8s linear infinite; }
+
+/* ─── Modal ─────────────────────────────────────────────────── */
+/* The overlay IS the scroll container */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(var(--rgb-black), 0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+
+.modal {
+  width: min(900px, 92vw);
+  background-color: rgba(var(--rgb-white), 1);
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 60px rgba(var(--rgb-black), 0.2);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.modalHead {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(var(--rgb-black), 0.07);
+  background-color: rgba(var(--rgb-black), 0.015);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+.modalHeadLeft { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.modalTitle { font-size: 0.9375rem; font-weight: 700; color: rgba(var(--rgb-black), 0.9); }
+.modalSub   { font-size: 0.75rem; color: rgba(var(--rgb-black), 0.4); }
+.modalHeadRight { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+
+.draftSwitcher { display: flex; gap: 0.25rem; }
+.draftBtn {
+  padding: 0.25rem 0.7rem; border: 1px solid rgba(var(--rgb-black), 0.12); border-radius: 20px;
+  background-color: rgba(var(--rgb-white), 1); font-size: 0.72rem; font-weight: 600;
+  color: rgba(var(--rgb-black), 0.5); cursor: pointer; transition: all 0.15s;
+}
+.draftBtnActive { border-color: rgba(var(--rgb-corten), 1); background-color: rgba(var(--rgb-corten), 0.06); color: rgba(var(--rgb-corten), 1); }
+
+.closeBtn { background: none; border: none; font-size: 1.25rem; color: rgba(var(--rgb-black), 0.4); cursor: pointer; display: flex; align-items: center; padding: 0.25rem; }
+.closeBtn:hover { color: rgba(var(--rgb-black), 0.85); }
+
+.modalBody { padding: 1.25rem; }
+
+.modalFooter { padding: 0.875rem 1.25rem; border-top: 1px solid rgba(var(--rgb-black), 0.07); display: flex; justify-content: flex-end; }
+
+.approveTaskBtn {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.5rem 1.25rem;
+  background-color: rgba(16, 185, 129, 1); border: none; border-radius: 0.5rem;
+  font-size: 0.875rem; font-weight: 600; color: rgba(var(--rgb-white), 1); cursor: pointer;
+  transition: background-color 0.15s;
+}
+.approveTaskBtn:hover { background-color: rgba(5, 150, 105, 1); }
+
+/* ─── Modal body content ────────────────────────────────────── */
+.articleMeta {
+  background-color: rgba(var(--rgb-black), 0.02);
+  border: 1px solid rgba(var(--rgb-black), 0.06);
+  border-radius: 0.5rem;
+  padding: 0.875rem 1rem;
+  margin-bottom: 1.25rem;
+  display: flex; flex-direction: column; gap: 0.35rem;
+}
+.metaRow { display: flex; align-items: baseline; gap: 0.5rem; font-size: 0.8125rem; }
+.metaKey { font-weight: 700; color: rgba(var(--rgb-black), 0.45); min-width: 7rem; flex-shrink: 0; }
+.metaVal { color: rgba(var(--rgb-black), 0.8); }
+.tagList { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.tag { font-size: 0.68rem; background-color: rgba(var(--rgb-corten), 0.08); color: rgba(var(--rgb-corten), 1); border-radius: 20px; padding: 0.1rem 0.5rem; font-weight: 600; }
+
+.articleBody { font-size: 0.9375rem; line-height: 1.8; color: rgba(var(--rgb-black), 0.85); }
+.articleBody :global(h1) { font-size: 1.5rem; font-weight: 800; line-height: 1.25; margin: 0 0 1.25rem; }
+.articleBody :global(h2) { font-size: 1.1rem; font-weight: 700; margin: 2rem 0 0.6rem; padding-top: 1.25rem; border-top: 1px solid rgba(var(--rgb-black), 0.07); }
+.articleBody :global(h3) { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 0.4rem; }
+.articleBody :global(p)  { margin: 0 0 1rem; }
+.articleBody :global(ul), .articleBody :global(ol) { padding-left: 1.5rem; margin: 0 0 1rem; }
+.articleBody :global(li) { margin: 0 0 0.3rem; }
+.articleBody :global(strong) { font-weight: 700; color: rgba(var(--rgb-black), 0.95); }
+.articleBody :global(code) { background-color: rgba(var(--rgb-black), 0.06); padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.875em; }
+.articleBody :global(a) { color: rgba(var(--rgb-corten), 1); text-decoration: underline; }
+
+.captionPreview { font-size: 0.9375rem; line-height: 1.8; color: rgba(var(--rgb-black), 0.85); white-space: pre-wrap; }
+.captionLine { margin: 0 0 0.25rem; }
+.captionHashtags { color: rgba(var(--rgb-corten), 1); font-size: 0.875rem; margin-top: 0.75rem; }
+
+.imageDir {
+  margin-top: 1.25rem;
+  padding: 0.875rem 1rem;
+  background-color: rgba(var(--rgb-black), 0.02);
+  border: 1px solid rgba(var(--rgb-black), 0.07);
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: rgba(var(--rgb-black), 0.65);
+}
+.imageDir strong { color: rgba(var(--rgb-black), 0.7); }
+
+.rawContent {
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: rgba(var(--rgb-black), 0.72);
+  margin: 0;
+}
+
+/* ─── Unused (kept for compat) ──────────────────────────────── */
+.actionBtn { display: none; }
+.runBtn    { display: none; }

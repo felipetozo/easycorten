@@ -1,0 +1,46 @@
+.main {
+  flex: 1;
+  padding-bottom: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.card {
+  background-color: rgba(var(--rgb-white), 1);
+  border: 1px solid rgba(var(--rgb-black), 0.07);
+  border-radius: 0.875rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.cardLabel {
+  font-size: 0.8125rem;
+  color: rgba(var(--rgb-black), 0.45);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cardValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(var(--rgb-black), 0.85);
+  line-height: 1;
+}
+
+.cardSub {
+  font-size: 0.8125rem;
+  color: rgba(var(--rgb-black), 0.4);
+}
