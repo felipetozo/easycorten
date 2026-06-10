@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
     const since = new Date(refDate);
     since.setDate(since.getDate() - 14);
-    const recentTasks: { theme: string; channel: string }[] = await prisma.contentTask.findMany({
+    const recentTasks = await prisma.contentTask.findMany({
       where:  { profileId: profile.id, createdAt: { gte: since } },
       select: { theme: true, channel: true },
     });

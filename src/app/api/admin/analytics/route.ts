@@ -131,10 +131,7 @@ export async function GET(request: NextRequest) {
       const v = await prisma.analyticsVisitor.findUnique({ where: { id: vid } });
       if (!v) return NextResponse.json({ ok: false, error: 'not found' }, { status: 404 });
 
-      const [pvs, evs]: [
-        { path: string; title: string | null; referrer: string | null; referrerSrc: string | null; utmCampaign: string | null; timeOnPage: number | null; isMobile: boolean; createdAt: Date }[],
-        { eventType: string; eventLabel: string | null; eventData: string | null; path: string; createdAt: Date }[]
-      ] = await Promise.all([
+      const [pvs, evs] = await Promise.all([
         prisma.analyticsPageview.findMany({
           where: { visitorId: vid }, orderBy: { createdAt: 'desc' }, take: 200,
           select: { path: true, title: true, referrer: true, referrerSrc: true, utmCampaign: true, timeOnPage: true, isMobile: true, createdAt: true },
