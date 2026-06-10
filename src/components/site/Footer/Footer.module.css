@@ -1,70 +1,194 @@
 .footer {
-  padding-top: 10rem;
-  padding-bottom: 3rem;
-  background-color: rgba(var(--rgb-white), 1);
+  padding: 0 0 5rem 0;
+  background-color: var(--color-black-deep);
+  overflow: visible;
 }
 
+/* ─── Brand image — fora do wrapper para poder sair acima do footer ─────── */
+.brand {
+  display: flex;
+  justify-content: center;
+  margin-top: -2.5rem;
+}
+
+.brandImage {
+  width: 50%;
+  height: auto;
+}
+
+/* ─── Wrapper — conteúdo principal ─────────────────────────────────────── */
 .wrapper {
   width: 83.33%;
   max-width: 100rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
+  padding-top: 3rem;
 }
 
-.top {
+/* ─── Help text ─────────────────────────────────────────────────────────── */
+.helpText {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: rgba(var(--rgb-white), 0.5);
+  text-align: center;
+}
+
+.helpLink {
+  color: inherit;
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.helpLink:hover {
+  color: rgba(var(--rgb-white), 1);
+}
+
+/* ─── Links row ─────────────────────────────────────────────────────────── */
+.links {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4rem;
 }
 
-.logoLink {
-  display: inline-block;
+.instagramLink {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.125rem;
   flex-shrink: 0;
+  transition: opacity var(--transition-fast);
 }
 
-.nav {
+.instagramLink:hover {
+  opacity: 0.8;
+}
+
+.navColumn,
+.orcamentoColumn {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.columnTitle {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.375rem;
 }
 
 .navLink {
   font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: rgba(var(--rgb-black), 0.55);
+  font-weight: 400;
+  color: rgba(var(--rgb-white), 0.5);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .navLink:hover {
-  color: rgba(var(--rgb-black), 1);
+  color: rgba(var(--rgb-white), 1);
 }
 
+.orcamentoText {
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: rgba(var(--rgb-white), 0.5);
+  max-width: 18rem;
+  line-height: 1.6;
+}
+
+.orcamentoLink {
+  color: rgba(var(--rgb-white), 0.5);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.orcamentoLink:hover {
+  color: rgba(var(--rgb-white), 1);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.logoColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.logoImage {
+  width: 12.5rem;
+  height: auto;
+}
+
+.logoMeta {
+  font-size: var(--font-size-xs);
+  color: rgba(var(--rgb-white), 0.5);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* ─── Bottom bar ────────────────────────────────────────────────────────── */
 .bottom {
-  border-top: 1px solid rgba(var(--rgb-black), 0.08);
+  border-top: 1px solid rgba(var(--rgb-white), 0.3);
   padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.copy {
-  font-size: 0.8rem;
-  color: rgba(var(--rgb-black), 0.4);
+.bottomText {
+  font-size: var(--font-size-sm);
+  color: rgba(var(--rgb-white), 0.5);
 }
 
+.bottomLink {
+  font-size: var(--font-size-sm);
+  color: rgba(var(--rgb-white), 0.5);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.bottomLink:hover {
+  color: rgba(var(--rgb-white), 1);
+}
+
+/* ─── Mobile ────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .wrapper {
     width: 90%;
   }
 
-  .top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
+  .brandImage {
+    width: 85%;
   }
 
-  .nav {
-    flex-wrap: wrap;
-    gap: 1rem 1.5rem;
+  .helpText {
+    font-size: var(--font-size-lg);
+  }
+
+  .links {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .orcamentoText {
+    max-width: 100%;
+  }
+
+  .bottom {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
   }
 }
