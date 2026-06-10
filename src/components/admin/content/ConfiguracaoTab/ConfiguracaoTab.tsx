@@ -17,6 +17,8 @@ const ALL_CHANNELS: { id: ContentChannel; Icon: React.ComponentType<{ size?: num
   { id: 'tiktok',    Icon: SiTiktok     },
 ];
 
+const AVAILABLE_CHANNELS: ContentChannel[] = ['blog', 'instagram'];
+
 type Props = { profile: ContentProfile | null; onSaved: (p: ContentProfile) => void };
 
 function tagsFromStr(v: string): string[] {
@@ -114,19 +116,25 @@ export default function ConfiguracaoTab({ profile, onSaved }: Props) {
         <h3 className={s.sectionTitle}>Canais e frequência <span className={s.hint}>(posts por semana)</span></h3>
         <div className={s.channelGrid}>
           {ALL_CHANNELS.map(({ id, Icon }) => {
-            const active = channels.includes(id);
-            const qty    = freq[id] ?? 0;
-            const meta   = CHANNEL_META[id];
+            const available = AVAILABLE_CHANNELS.includes(id);
+            const active    = available && channels.includes(id);
+            const qty       = freq[id] ?? 0;
+            const meta      = CHANNEL_META[id];
             return (
               <div
                 key={id}
-                className={s.channelRow}
+                className={`${s.channelRow} ${!available ? s.channelRowDisabled : ''}`}
                 style={{
                   borderColor:     active ? meta.color + '55' : 'rgba(0,0,0,0.08)',
                   backgroundColor: active ? meta.bg           : 'rgba(0,0,0,0.015)',
                 }}
               >
-                <button type="button" className={s.channelToggle} onClick={() => toggleChannel(id)}>
+                <button
+                  type="button"
+                  className={s.channelToggle}
+                  onClick={available ? () => toggleChannel(id) : undefined}
+                  disabled={!available}
+                >
                   <span className={s.chIcon} style={{ color: active ? meta.color : 'rgba(0,0,0,0.28)' }}>
                     <Icon size={15} />
                   </span>
@@ -134,7 +142,7 @@ export default function ConfiguracaoTab({ profile, onSaved }: Props) {
                     {meta.label}
                   </span>
                 </button>
-                {active && (
+                {available && active && (
                   <div className={s.counter}>
                     <button
                       type="button"

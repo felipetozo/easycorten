@@ -71,11 +71,12 @@ type TaskCardProps = {
 };
 
 function TaskCard({ task, onRefresh, onPreview }: TaskCardProps) {
-  const [genStep,  setGenStep]  = useState<GenStep>(null);
-  const [genPct,   setGenPct]   = useState(0);
-  const [genError, setGenError] = useState('');
-  const [deleting, setDeleting] = useState(false);
-  const [open,     setOpen]     = useState(false);
+  const [genStep,   setGenStep]   = useState<GenStep>(null);
+  const [genPct,    setGenPct]    = useState(0);
+  const [genError,  setGenError]  = useState('');
+  const [deleting,  setDeleting]  = useState(false);
+  const [open,      setOpen]      = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const isGenerating = genStep !== null;
   const meta    = CHANNEL_META[task.channel];
@@ -120,6 +121,8 @@ function TaskCard({ task, onRefresh, onPreview }: TaskCardProps) {
         await post('/api/agents/content/instagram-writer', { taskId: task.id });
       }
       setGenPct(100);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 4000);
       onRefresh();
     } catch (err) {
       setGenError(err instanceof Error ? err.message : String(err));
@@ -147,6 +150,14 @@ function TaskCard({ task, onRefresh, onPreview }: TaskCardProps) {
   const canApprove = task.status === 'writing_done' && drafts.length > 0 && !isGenerating;
 
   return (
+    <>
+    {showToast && typeof document !== 'undefined' && createPortal(
+      <div className={s.toast}>
+        <span className={s.toastIcon}>✓</span>
+        Conteúdo criado com sucesso!
+      </div>,
+      document.body,
+    )}
     <div
       className={s.taskCard}
       style={{ borderColor: isGenerating ? 'rgba(16,185,129,0.3)' : undefined }}
@@ -248,6 +259,7 @@ function TaskCard({ task, onRefresh, onPreview }: TaskCardProps) {
         </div>
       )}
     </div>
+    </>
   );
 }
 
@@ -261,8 +273,12 @@ type ModalProps = {
 };
 
 function DraftModal({ task, draft, onClose, onRefresh }: ModalProps) {
-  const [mounted, setMounted] = useState(false);
-  const [cur, setCur]         = useState(draft);
+  const [mounted,      setMounted]      = useState(false);
+  const [cur,          setCur]          = useState(draft);
+  const [showCorrect,  setShowCorrect]  = useState(false);
+  const [instructions, setInstructions] = useState('');
+  const [rewriting,    setRewriting]    = useState(false);
+  const [rewriteError, setRewriteError] = useState('');
   useEffect(() => { setMounted(true); }, []);
 
   const dLabels: Record<string, string> = {
@@ -274,6 +290,7 @@ function DraftModal({ task, draft, onClose, onRefresh }: ModalProps) {
   const meta      = cur.metadata as Record<string, unknown> | null;
   const isBlog    = cur.type === 'blog_post';
   const isCaption = cur.type === 'caption';
+  const canRewrite = cur.type !== 'research_brief';
 
   if (!mounted) return null;
 
@@ -284,6 +301,28 @@ function DraftModal({ task, draft, onClose, onRefresh }: ModalProps) {
     });
     onRefresh();
     onClose();
+  }
+
+  async function handleRewrite() {
+    if (!instructions.trim()) return;
+    setRewriting(true);
+    setRewriteError('');
+    try {
+      const res  = await fetch('/api/agents/content/rewrite', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ draftId: cur.id, instructions }),
+      });
+      const data = await res.json() as { ok?: boolean; error?: string };
+      if (!res.ok || !data.ok) { setRewriteError(data.error ?? 'Erro ao regerar'); return; }
+      setShowCorrect(false);
+      setInstructions('');
+      onRefresh();
+      onClose();
+    } catch (e) {
+      setRewriteError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setRewriting(false);
+    }
   }
 
   return createPortal(
@@ -359,13 +398,47 @@ function DraftModal({ task, draft, onClose, onRefresh }: ModalProps) {
           </div>
         )}
 
-        {task.status === 'writing_done' && cur.status === 'pending_approval' && (
-          <div className={s.modalFooter}>
+        {canRewrite && showCorrect && (
+          <div className={s.correctPanel}>
+            <textarea
+              autoFocus
+              className={s.correctInput}
+              placeholder="Descreva as correções — ex: ajustar tom, encurtar introdução, adicionar CTA…"
+              value={instructions}
+              onChange={(e) => setInstructions(e.target.value)}
+              rows={3}
+            />
+            {rewriteError && <p className={s.rewriteError}>{rewriteError}</p>}
+            <div className={s.correctActions}>
+              <button type="button" className={s.cancelBtn}
+                onClick={() => { setShowCorrect(false); setInstructions(''); setRewriteError(''); }}
+              >
+                Cancelar
+              </button>
+              <button type="button" className={s.rewriteBtn}
+                onClick={handleRewrite}
+                disabled={rewriting || !instructions.trim()}
+              >
+                {rewriting ? 'Regerando…' : 'Regerar'}
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className={s.modalFooter}>
+          {canRewrite && !showCorrect && (
+            <button type="button" className={s.correctBtn}
+              onClick={() => setShowCorrect(true)}
+            >
+              ✏️ Corrigir
+            </button>
+          )}
+          {task.status === 'writing_done' && cur.status === 'pending_approval' && (
             <button type="button" className={s.approveTaskBtn} onClick={approve}>
               <RiCheckLine /> Aprovar conteúdo
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>,
     document.body,

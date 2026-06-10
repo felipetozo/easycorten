@@ -58,11 +58,6 @@ export default function ConteudoPage() {
   return (
     <div className={s.page}>
       <div className={s.header}>
-        <h1 className={s.title}>Conteúdo</h1>
-        <p className={s.subtitle}>Configuração, planejamento e criação com IA</p>
-      </div>
-
-      <div className={s.tabs}>
         {TABS.map(({ id, label, Icon }) => (
           <button key={id} type="button"
             className={`${s.tab} ${tab === id ? s.tabActive : ''}`}

@@ -4,20 +4,13 @@
   position: sticky;
   top: var(--admin-topbar-h, 76px);
   z-index: 50;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.92);
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   backdrop-filter: blur(1rem);
   margin: -2rem -2rem 0;
-  padding: 0.625rem 2rem 0;
-}
-
-.title    { font-size: 1.125rem; font-weight: 600; color: rgba(var(--rgb-black), 0.85); margin: 0 0 0.125rem; }
-.subtitle { font-size: 0.8125rem; color: rgba(var(--rgb-black), 0.45); margin: 0 0 0.875rem; }
-
-.tabs {
+  padding: 0 2rem;
   display: flex;
   gap: 0;
-  border-bottom: none;
 }
 
 .tab {

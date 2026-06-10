@@ -128,6 +128,9 @@
 .chIcon  { display: flex; flex-shrink: 0; transition: color 0.15s; }
 .chLabel { font-size: 0.875rem; font-weight: 600; transition: color 0.15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+.channelRowDisabled { opacity: 0.45; cursor: default; }
+.channelRowDisabled .channelToggle { cursor: default; pointer-events: none; }
+
 /* ─── Ações ─────────────────────────────────────────────────── */
 .actions { display: flex; justify-content: flex-end; }
 
