@@ -57,6 +57,12 @@
   /* Layout */
   --container-max: 1280px;
   --container-padding: var(--space-6);
+
+  /* RGB channels for rgba() composition */
+  --rgb-black: 49, 55, 58;
+  --rgb-white: 255, 255, 255;
+  --rgb-corten: 186, 72, 24;
+  --rgb-section-light: 249, 247, 245;
 }
 
 /* ─── Base Reset ─────────────────────────────────────────────────────── */
